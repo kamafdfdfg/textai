@@ -4,76 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Chatbot</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="chat-container">
-        <div class="chat-log" id="chatLog">
-            <div class="chat-message bot">Привет! Я - Алекс. Чем могу помочь?</div>
-        </div>
-        <input type="text" id="userInput" placeholder="Задайте ваш вопрос..." autofocus>
-    </div>
-    <script>
-        const chatLog = document.getElementById("chatLog");
-        const userInput = document.getElementById("userInput");
-
-        userInput.addEventListener("keydown", async function (event) {
-            if (event.key === "Enter" && userInput.value.trim() !== "") {
-                const userMessage = userInput.value.trim();
-                addMessage(userMessage, "user");
-                userInput.value = "";
-
-                let botMessage = getBotResponse(userMessage);
-                addMessage(botMessage, "bot");
-            }
-        });
-
-        const questions = [
-    "Какой смысл жизни?",
-    "Что такое искусственный интеллект?",
-    "Какие преимущества учебы программированию?",
-    "Как переводится hello",
-    "Чем отличается Java от JavaScript?",
-    "Как работает сверточная нейронная сеть?",
-    "Что такое blockchain?",
-    "Какие основные принципы SOLID?",
-    "Что такое Docker и как он используется?",
-    "Какие есть типы данных в Python?",
-    // ... продолжайте список вопросов здесь
-];
-
-const answers = [
-    "Смысл жизни индивидуален для каждого человека.",
-    "Искусственный интеллект - это область компьютерных наук, которая занимается созданием умственной активности машин.",
-    "Учеба программированию позволяет развивать логическое мышление и создавать полезные приложения.",
-    "Hello - Здравствуйте",
-    "Java и JavaScript различаются как языки программирования и имеют разные назначения.",
-    "Сверточные нейронные сети используются для обработки изображений и имеют слои для извлечения признаков.",
-    "Blockchain - это децентрализованная система хранения данных, используемая, например, в криптовалютах.",
-    "SOLID - это аббревиатура, представляющая пять принципов проектирования программного обеспечения.",
-    "Docker - это платформа для контейнеризации приложений и их зависимостей.",
-    "Python поддерживает различные типы данных, включая числа, строки и списки.",
-    // ... продолжайте список ответов здесь
-];
-
-            const index = questions.indexOf(userMessage);
-            if (index !== -1) {
-                return answers[index];
-            } else {
-                return "Извините, я не знаю ответ на этот вопрос.";
-            }
-        }
-
-        function addMessage(message, sender) {
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("chat-message", sender);
-            messageDiv.innerText = message;
-            chatLog.appendChild(messageDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
-    </script>
     <style>
-       /* Общие стили */
+         /* Общие стили */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -147,5 +79,74 @@ body {
 /* Настройте цвета, шрифты и отступы согласно вашим предпочтениям */
 
     </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-log" id="chatLog">
+            <div class="chat-message bot">Привет! Я - Алекс. Чем могу помочь?</div>
+        </div>
+        <input type="text" id="userInput" placeholder="Задайте ваш вопрос..." autofocus>
+    </div>
+    <script>
+        const chatLog = document.getElementById("chatLog");
+        const userInput = document.getElementById("userInput");
+
+   const questions = [
+    "Какой смысл жизни?",
+    "Что такое искусственный интеллект?",
+    "Какие преимущества учебы программированию?",
+    "Как переводится hello",
+    "Чем отличается Java от JavaScript?",
+    "Как работает сверточная нейронная сеть?",
+    "Что такое blockchain?",
+    "Какие основные принципы SOLID?",
+    "Что такое Docker и как он используется?",
+    "Какие есть типы данных в Python?",
+    // ... продолжайте список вопросов здесь
+];
+
+const answers = [
+    "Смысл жизни индивидуален для каждого человека.",
+    "Искусственный интеллект - это область компьютерных наук, которая занимается созданием умственной активности машин.",
+    "Учеба программированию позволяет развивать логическое мышление и создавать полезные приложения.",
+    "Hello - Здравствуйте",
+    "Java и JavaScript различаются как языки программирования и имеют разные назначения.",
+    "Сверточные нейронные сети используются для обработки изображений и имеют слои для извлечения признаков.",
+    "Blockchain - это децентрализованная система хранения данных, используемая, например, в криптовалютах.",
+    "SOLID - это аббревиатура, представляющая пять принципов проектирования программного обеспечения.",
+    "Docker - это платформа для контейнеризации приложений и их зависимостей.",
+    "Python поддерживает различные типы данных, включая числа, строки и списки.",
+    // ... продолжайте список ответов здесь
+];
+
+
+        userInput.addEventListener("keydown", async function (event) {
+            if (event.key === "Enter" && userInput.value.trim() !== "") {
+                const userMessage = userInput.value.trim();
+                addMessage(userMessage, "user");
+                userInput.value = "";
+
+                let botMessage = getBotResponse(userMessage);
+                addMessage(botMessage, "bot");
+            }
+        });
+
+        function getBotResponse(userMessage) {
+            const index = questions.indexOf(userMessage);
+            if (index !== -1) {
+                return answers[index];
+            } else {
+                return "Извините, я не знаю ответ на этот вопрос.";
+            }
+        }
+
+        function addMessage(message, sender) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("chat-message", sender);
+            messageDiv.innerText = message;
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
 </body>
 </html>
