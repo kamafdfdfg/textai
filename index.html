@@ -23,26 +23,32 @@
                 addMessage(userMessage, "user");
                 userInput.value = "";
 
-                const botMessage = await getBotResponse(userMessage);
+                let botMessage = getBotResponse(userMessage);
                 addMessage(botMessage, "bot");
             }
         });
 
-        async function getBotResponse(userMessage) {
-            const response = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer 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" // Ваш API-ключ
-                },
-                body: JSON.stringify({
-                    prompt: userMessage,
-                    max_tokens: 50 // Максимальное количество токенов в ответе
-                }),
-            });
+        function getBotResponse(userMessage) {
+            const questions = [
+                "Какой смысл жизни?",
+                "Что такое искусственный интеллект?",
+                "Какие преимущества учебы программированию?",
+                "Как переводиться hello",
+            ];
 
-            const data = await response.json();
-            return data.choices[0].text;
+            const answers = [
+                "Смысл жизни индивидуален для каждого человека.",
+                "Искусственный интеллект - это область компьютерных наук, которая занимается созданием умственной активности машин.",
+                "Учеба программированию позволяет развивать логическое мышление и создавать полезные приложения.",
+                "Hello - Здравствуйте"
+            ];
+
+            const index = questions.indexOf(userMessage);
+            if (index !== -1) {
+                return answers[index];
+            } else {
+                return "Извините, я не знаю ответ на этот вопрос.";
+            }
         }
 
         function addMessage(message, sender) {
@@ -54,13 +60,15 @@
         }
     </script>
     <style>
-        body {
+       /* Общие стили */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
 }
 
+/* Стили для контейнера чата */
 .chat-container {
     max-width: 600px;
     margin: 20px auto;
@@ -70,26 +78,60 @@
     padding: 20px;
 }
 
+/* Стили для лога чата */
 .chat-log {
     max-height: 400px;
     overflow-y: scroll;
 }
 
+/* Стили для сообщений чата */
 .chat-message {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
 }
 
+/* Стили для бота */
 .bot {
     background-color: #f1f1f1;
     text-align: left;
 }
 
+/* Стили для пользователя */
 .user {
     background-color: #e1f5fe;
     text-align: right;
 }
+
+/* Стили для ввода сообщения */
+#userInput {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для кнопок (если планируете добавить) */
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Дополнительные стили для улучшения внешнего вида */
+/* Настройте цвета, шрифты и отступы согласно вашим предпочтениям */
 
     </style>
 </body>
