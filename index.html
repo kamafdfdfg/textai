@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Chatbot</title>
     <style>
-         /* Общие стили */
+       /* Общие стили */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -85,13 +85,17 @@ body {
         <div class="chat-log" id="chatLog">
             <div class="chat-message bot">Привет! Я - Алекс. Чем могу помочь?</div>
         </div>
-        <input type="text" id="userInput" placeholder="Задайте ваш вопрос..." autofocus>
+        <div class="user-input-container">
+            <input type="text" id="userInput" placeholder="Задайте ваш вопрос..." autofocus>
+            <button id="sendMessageButton">Отправить</button>
+        </div>
     </div>
     <script>
         const chatLog = document.getElementById("chatLog");
         const userInput = document.getElementById("userInput");
+        const sendMessageButton = document.getElementById("sendMessageButton");
 
-   const questions = [
+        const questions = [
     "Какой смысл жизни?",
     "Что такое искусственный интеллект?",
     "Какие преимущества учебы программированию?",
@@ -122,14 +126,24 @@ const answers = [
 
         userInput.addEventListener("keydown", async function (event) {
             if (event.key === "Enter" && userInput.value.trim() !== "") {
-                const userMessage = userInput.value.trim();
+                sendMessage();
+            }
+        });
+
+        sendMessageButton.addEventListener("click", function () {
+            sendMessage();
+        });
+
+        function sendMessage() {
+            const userMessage = userInput.value.trim();
+            if (userMessage !== "") {
                 addMessage(userMessage, "user");
                 userInput.value = "";
 
                 let botMessage = getBotResponse(userMessage);
                 addMessage(botMessage, "bot");
             }
-        });
+        }
 
         function getBotResponse(userMessage) {
             const index = questions.indexOf(userMessage);
